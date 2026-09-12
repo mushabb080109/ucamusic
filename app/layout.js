@@ -7,6 +7,8 @@ import ToastHost from "@/components/ui/ToastHost";
 import TrackOptionsSheet from "@/components/sheets/TrackOptionsSheet";
 import PlaylistPickerSheet from "@/components/sheets/PlaylistPickerSheet";
 import PWARegister from "@/components/PWARegister";
+import AmbientBackground from "@/components/AmbientBackground";
+import PageTransition from "@/components/PageTransition";
 
 export const metadata = {
   title: "ucamusic — Stream Music, Beautifully",
@@ -38,6 +40,7 @@ export const viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
+  viewportFit: "cover",
   themeColor: "#050505",
 };
 
@@ -47,7 +50,10 @@ export default function RootLayout({ children }) {
       <body className="font-body">
         <SplashScreen />
         <PWARegister />
-        <div className="min-h-screen pb-32 max-w-5xl mx-auto">{children}</div>
+        <AmbientBackground />
+        <div className="relative z-10 min-h-screen pb-32 pt-safe max-w-5xl mx-auto">
+          <PageTransition>{children}</PageTransition>
+        </div>
         <BottomNav />
         <MiniPlayer />
         <FullPlayer />

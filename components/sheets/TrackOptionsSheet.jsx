@@ -77,6 +77,7 @@ export default function TrackOptionsSheet() {
             exit={{ y: "100%" }}
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
             className="fixed bottom-0 left-0 right-0 z-[71] glass-dock rounded-t-3xl px-4 pt-3 pb-8 max-w-lg mx-auto"
+            style={{ paddingBottom: "calc(2rem + env(safe-area-inset-bottom))" }}
           >
             <div className="w-10 h-1 bg-white/20 rounded-full mx-auto mb-4" />
 

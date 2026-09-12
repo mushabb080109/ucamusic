@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { ChevronLeft, Play, Shuffle } from "lucide-react";
 import { api } from "@/lib/api";
 import { proxyImage } from "@/lib/format";
@@ -46,7 +47,7 @@ export default function ArtistPage() {
 
   if (!data) {
     return (
-      <main className="px-4 pt-8 text-center text-white/40">
+      <main className="px-4 pt-10 text-center text-white/40">
         <p className="text-sm">Artis tidak ditemukan.</p>
       </main>
     );
@@ -62,30 +63,30 @@ export default function ArtistPage() {
 
   return (
     <main className="pb-4">
-      <div className="relative h-80 w-full">
+      <motion.div initial={{ opacity: 0, scale: 1.05 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }} className="relative h-80 w-full">
         {cover && <Image src={proxyImage(cover)} alt={data.name} fill sizes="100vw" className="object-cover" unoptimized priority />}
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-base/50 to-base" />
-        <button onClick={() => router.back()} className="absolute top-6 left-4 p-2 rounded-full bg-black/40 backdrop-blur-md text-white">
+        <button onClick={() => router.back()} className="absolute top-6 left-4 p-2 rounded-full bg-black/40 backdrop-blur-md text-white active:scale-90 transition-transform">
           <ChevronLeft className="w-5 h-5" />
         </button>
         <div className="absolute bottom-5 left-4 right-4">
           <p className="text-[11px] uppercase tracking-widest text-white/60 mb-1">Artis</p>
           <h1 className="font-display text-[34px] leading-none font-bold text-white drop-shadow-lg">{data.name}</h1>
         </div>
-      </div>
+      </motion.div>
 
       <div className="px-4 mt-5">
         {topSongs.length > 0 && (
           <div className="flex gap-2 mb-5">
             <button
               onClick={() => playTrack(topSongs[0], topSongs)}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-black text-sm font-semibold active:scale-95 transition-transform"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-black text-sm font-semibold active:scale-90 transition-transform shadow-glow"
             >
               <Play className="w-4 h-4" fill="black" /> Putar
             </button>
             <button
               onClick={() => playTrack(topSongs[Math.floor(Math.random() * topSongs.length)], topSongs)}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-full glass text-white text-sm font-medium active:scale-95 transition-transform"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-full glass text-white text-sm font-medium active:scale-90 transition-transform"
             >
               <Shuffle className="w-4 h-4" />
             </button>
@@ -124,7 +125,7 @@ export default function ArtistPage() {
               <a key={a.browseId} href={`/artist/${a.browseId}`} className="group flex-none w-[128px] text-center card-hover">
                 <div className="relative w-full aspect-square rounded-full overflow-hidden bg-base-card border border-white/5">
                   {a.thumbnails?.length > 0 && (
-                    <Image src={proxyImage(a.thumbnails[a.thumbnails.length - 1].url)} alt={a.name} fill sizes="130px" className="object-cover" unoptimized />
+                    <Image src={proxyImage(a.thumbnails[a.thumbnails.length - 1].url)} alt={a.name} fill sizes="130px" className="object-cover img-zoom" unoptimized />
                   )}
                 </div>
                 <p className="mt-2 text-[13px] font-medium text-white truncate">{a.name}</p>

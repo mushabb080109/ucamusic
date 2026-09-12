@@ -85,7 +85,10 @@ export default function FullPlayer() {
           </div>
           <div className="absolute inset-0 bg-gradient-to-b from-base/60 via-base/85 to-base pointer-events-none" />
 
-          <div className="relative z-10 h-full flex flex-col px-5 pt-6 pb-6 max-w-lg mx-auto">
+          <div
+            className="relative z-10 h-full flex flex-col px-5 max-w-lg mx-auto"
+            style={{ paddingTop: "calc(1.5rem + env(safe-area-inset-top))", paddingBottom: "calc(1.5rem + env(safe-area-inset-bottom))" }}
+          >
             {/* header */}
             <div className="flex items-center justify-between shrink-0">
               <button onClick={closeFullPlayer} className="p-2 -ml-2 text-white/80 hover:text-white">

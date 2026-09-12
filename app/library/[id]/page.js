@@ -1,5 +1,6 @@
 "use client";
 import { useParams, useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 import { ChevronLeft, Play, ListMusic, X } from "lucide-react";
 import { useLibraryStore } from "@/store/useLibraryStore";
 import { usePlayerStore } from "@/store/usePlayerStore";
@@ -16,7 +17,7 @@ export default function PlaylistDetailPage() {
 
   if (!playlist) {
     return (
-      <main className="px-4 pt-8 text-center text-white/40">
+      <main className="px-4 pt-10 text-center text-white/40">
         <p className="text-sm">Playlist tidak ditemukan.</p>
         <button onClick={() => router.push("/library")} className="mt-3 text-xs text-accent-soft underline">
           Kembali ke Koleksi
@@ -26,25 +27,25 @@ export default function PlaylistDetailPage() {
   }
 
   return (
-    <main className="px-4 pt-8">
-      <button onClick={() => router.back()} className="flex items-center gap-1 text-white/60 hover:text-white text-sm mb-4">
+    <main className="px-4 pt-10">
+      <button onClick={() => router.back()} className="flex items-center gap-1 text-white/60 hover:text-white text-sm mb-4 active:scale-95 transition-transform">
         <ChevronLeft className="w-4 h-4" /> Kembali
       </button>
 
-      <div className="flex items-center gap-4 mb-6">
-        <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-accent/30 to-white/5 flex items-center justify-center shrink-0">
+      <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }} className="flex items-center gap-4 mb-6">
+        <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-accent/30 to-white/5 flex items-center justify-center shrink-0 ring-1 ring-white/10 shadow-glow">
           <ListMusic className="w-8 h-8 text-white/60" />
         </div>
         <div className="min-w-0">
           <h1 className="font-display text-xl font-bold text-white truncate">{playlist.name}</h1>
           <p className="text-xs text-white/45">{playlist.tracks.length} lagu</p>
         </div>
-      </div>
+      </motion.div>
 
       {playlist.tracks.length > 0 && (
         <button
           onClick={() => playTrack(playlist.tracks[0], playlist.tracks)}
-          className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-black text-sm font-semibold mb-5 active:scale-95 transition-transform"
+          className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-black text-sm font-semibold mb-5 active:scale-90 transition-transform shadow-glow"
         >
           <Play className="w-4 h-4" fill="black" /> Putar Semua
         </button>

@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { ChevronLeft, Play, Loader2, Shuffle } from "lucide-react";
 import { api } from "@/lib/api";
 import { proxyImage } from "@/lib/format";
@@ -38,7 +39,7 @@ export default function AlbumPage() {
 
   if (!data) {
     return (
-      <main className="px-4 pt-8 text-center text-white/40">
+      <main className="px-4 pt-10 text-center text-white/40">
         <p className="text-sm">Tidak ditemukan.</p>
       </main>
     );
@@ -55,13 +56,18 @@ export default function AlbumPage() {
 
   return (
     <main className="pb-4">
-      <div className="px-4 pt-8">
-        <button onClick={() => router.back()} className="flex items-center gap-1 text-white/60 hover:text-white text-sm mb-5">
+      <div className="px-4 pt-10">
+        <button onClick={() => router.back()} className="flex items-center gap-1 text-white/60 hover:text-white text-sm mb-5 active:scale-95 transition-transform">
           <ChevronLeft className="w-4 h-4" /> Kembali
         </button>
 
-        <div className="flex flex-col items-center text-center mb-6">
-          <div className="relative w-48 h-48 rounded-2xl overflow-hidden shadow-2xl border border-white/10 mb-4">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col items-center text-center mb-6"
+        >
+          <div className="relative w-48 h-48 rounded-[24px] overflow-hidden shadow-2xl border border-white/10 mb-4 ring-1 ring-white/5">
             {cover && <Image src={proxyImage(cover)} alt={data.title} fill className="object-cover" unoptimized />}
           </div>
           <h1 className="font-display text-xl font-bold text-white">{data.title}</h1>
@@ -72,19 +78,19 @@ export default function AlbumPage() {
             <div className="flex gap-2 mt-4">
               <button
                 onClick={() => playTrack(songs[0], songs)}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-black text-sm font-semibold active:scale-95 transition-transform"
+                className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-black text-sm font-semibold active:scale-90 transition-transform shadow-glow"
               >
                 <Play className="w-4 h-4" fill="black" /> Putar
               </button>
               <button
                 onClick={() => playTrack(songs[Math.floor(Math.random() * songs.length)], songs)}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-full glass text-white text-sm font-medium active:scale-95 transition-transform"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-full glass text-white text-sm font-medium active:scale-90 transition-transform"
               >
                 <Shuffle className="w-4 h-4" />
               </button>
             </div>
           )}
-        </div>
+        </motion.div>
 
         {songs.length === 0 ? (
           <p className="text-center text-white/35 text-sm py-10">Tidak ada lagu ditemukan.</p>
