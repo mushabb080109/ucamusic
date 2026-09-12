@@ -1,25 +1,21 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Search, Library, Clapperboard, User } from "lucide-react";
+import { Home, Search, Library, Heart, User } from "lucide-react";
 import { usePlayerStore } from "@/store/usePlayerStore";
 import { cx } from "@/lib/format";
 
 const items = [
   { href: "/", label: "Home", icon: Home },
-  { href: "/reels", label: "Reels", icon: Clapperboard },
   { href: "/search", label: "Cari", icon: Search },
   { href: "/library", label: "Koleksi", icon: Library },
+  { href: "/liked", label: "Disukai", icon: Heart },
   { href: "/profile", label: "Profil", icon: User },
 ];
 
 export default function BottomNav() {
   const pathname = usePathname();
   const currentTrack = usePlayerStore((s) => s.currentTrack);
-
-  if (pathname?.startsWith("/reels") || pathname?.startsWith("/admin")) {
-    return null;
-  }
 
   return (
     <nav

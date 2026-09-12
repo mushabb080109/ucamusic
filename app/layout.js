@@ -6,13 +6,11 @@ import SplashScreen from "@/components/SplashScreen";
 import ToastHost from "@/components/ui/ToastHost";
 import TrackOptionsSheet from "@/components/sheets/TrackOptionsSheet";
 import PlaylistPickerSheet from "@/components/sheets/PlaylistPickerSheet";
-import AuthSyncProvider from "@/components/AuthSyncProvider";
-import AppGate from "@/components/AppGate";
 import PWARegister from "@/components/PWARegister";
 
 export const metadata = {
   title: "ucamusic — Stream Music, Beautifully",
-  description: "ucamusic adalah pemutar musik streaming premium: cari, dengarkan, dan nikmati lirik sinkron dari jutaan lagu — cepat, elegan, dan gratis.",
+  description: "ucamusic adalah pemutar musik streaming premium: cari, dengarkan, dan nikmati lirik sinkron dari jutaan lagu — cepat, elegan, gratis, dan tanpa akun.",
   applicationName: "ucamusic",
   manifest: "/manifest.json",
   icons: {
@@ -48,17 +46,14 @@ export default function RootLayout({ children }) {
     <html lang="id">
       <body className="font-body">
         <SplashScreen />
-        <AuthSyncProvider />
         <PWARegister />
-        <AppGate>
-          <div className="min-h-screen pb-32">{children}</div>
-          <BottomNav />
-          <MiniPlayer />
-          <FullPlayer />
-          <TrackOptionsSheet />
-          <PlaylistPickerSheet />
-          <ToastHost />
-        </AppGate>
+        <div className="min-h-screen pb-32 max-w-5xl mx-auto">{children}</div>
+        <BottomNav />
+        <MiniPlayer />
+        <FullPlayer />
+        <TrackOptionsSheet />
+        <PlaylistPickerSheet />
+        <ToastHost />
       </body>
     </html>
   );
